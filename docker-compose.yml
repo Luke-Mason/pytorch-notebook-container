@@ -1,11 +1,11 @@
 version: '2.0'
 services:
   main:
-    image: tverous/pytorch-notebook
+    image: train-ufo
     environment:
       - JUPYTER_TOKEN=passwd # TODO: Change the token
     volumes:
-      - /local_vol:/docker_vol
+      - /c/ML_Data:/docker_vol
     ports:
       - 8888:8888
     deploy:

@@ -3,6 +3,14 @@
 [![Create and publish a Docker iamge](https://github.com/Tverous/pytorch-notebook/actions/workflows/docker-image.yml/badge.svg)](https://github.com/Tverous/pytorch-notebook/actions/workflows/docker-image.yml)
 
 This docker image supports with jupyter, pytorch and cuda.
+## Build Container
+
+```bash
+docker build --no-cache              -f create-user.dockerfile              --build-arg MY_UID="$(id -u)"              --build-arg MY_GID="$(id -g)"              --build-arg USER=l
+ukey              --build-arg HOME=/c/Users/lukey/    --build-arg NOPASSWD=false    -f jupyter-lab-extension.dockerfile      -t train-ufo:user              .
+
+```
+
 
 ## Run the container
 
@@ -12,7 +20,7 @@ This docker image supports with jupyter, pytorch and cuda.
 docker run --rm -it  \
            -p 8888:8888  \
            -e JUPYTER_TOKEN=passwd  \
-           tverous/pytorch-notebook:latest
+           train-ufo:latest
 ```
 
 ### Start the container with GPUs support:
@@ -22,7 +30,7 @@ docker run --rm -it  \
            --gpus all  \
            -p 8888:8888  \
            -e JUPYTER_TOKEN=passwd  \
-           tverous/pytorch-notebook:latest
+           train-ufo:latest
 ```
 
 ### Start the container with volumes:
@@ -33,7 +41,7 @@ docker run --rm -it  \
            -p 8888:8888  \
            -e JUPYTER_TOKEN=passwd \
            -v /local_vol:/docker_vol  \
-           tverous/pytorch-notebook:latest
+           train-ufo:latest
 ```
 
 ## Others (Experimental)
@@ -55,11 +63,7 @@ Modify this setting if it is not desired.
 ``` sh
 docker build --no-cache \
              -f create-user.dockerfile \
-             --build-arg MY_UID="$(id -u)" \
-             --build-arg MY_GID="$(id -g)" \
-             --build-arg USER=demo \
-             --build-arg HOME=/home/demo \
-             -t tverous/pytorch-notebook:user \
+             -t train-ufo:user \
              .
 ```
 
@@ -69,7 +73,7 @@ Start the container with the image you just builded.
 docker run --rm -it  \
            -p 8888:8888  \
            -e JUPYTER_TOKEN=passwd  \
-           tverous/pytorch-notebook:user
+           train-ufo:user
 ```
 
 Where the argument `MY_UID` is the user id for the created user, `MY_GID` is the group id for the created user, `USER` is the name of the created user, and `HOME` is the home directory for the created user.
@@ -92,7 +96,7 @@ Build a new image with installed Jupyter Lab extensions.
 ``` sh
 docker build --no-cache \
              -f jupyter-lab-extension.dockerfile \
-             -t tverous/pytorch-notebook:extension \
+             -t train-ufo:extension \
              .
 ```
 
@@ -102,7 +106,7 @@ Start the container with the image you just builded.
 docker run --rm -it  \
            -p 8888:8888  \
            -e JUPYTER_TOKEN=passwd  \
-           tverous/pytorch-notebook:extension
+           train-ufo:extension
 ```
 
 Update the file `jupter-lab-extension.dockerfile` for other extensions you would like to install.
@@ -135,5 +139,5 @@ docker run --rm \                       # remove the container when it exits
            --gpus all \                 # support all gpus (docker > 19.03)
            -v /local_vol:/docker_vol \  # volume: mapping local folder to container
            -e JUPYTER_TOKEN=passwd \    # Jupyter password: passwd
-           -d tverous/pytorch-notebook:latest
+           -d train-ufo:latest
 ```

@@ -1,4 +1,4 @@
-FROM tverous/pytorch-notebook
+FROM train-ufo
 
 ARG MY_UID
 ARG MY_GID

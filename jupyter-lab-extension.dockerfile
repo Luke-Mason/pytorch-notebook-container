@@ -1,4 +1,4 @@
-FROM tverous/pytorch-notebook
+FROM train-ufo
 
 # install jupyter lab extensions
 RUN pip install \
